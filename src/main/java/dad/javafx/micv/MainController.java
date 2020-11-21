@@ -77,11 +77,14 @@ public class MainController implements Initializable {
 		if (ov != null) {
 			personalController.personalProperty().unbind();
 			// TODO desbindear el resto de controladores
+			contactoController.contactoProperty().unbind();
+			
 		}
 		
 		if (nv != null) {
 			personalController.personalProperty().bind(nv.personalProperty());
 			// TODO bindear el resto de controladores
+			contactoController.contactoProperty().bind(nv.contactoProperty());
 		}
 		
 	}
@@ -148,7 +151,6 @@ public class MainController implements Initializable {
 
     @FXML
     void onNuevoAction(ActionEvent event) {
-    	System.out.println("Nuevo");
     	cv.set(new CV());
     }
     
