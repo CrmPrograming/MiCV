@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import dad.javafx.micv.App;
 import dad.javafx.micv.model.Contacto;
+import dad.javafx.micv.model.Email;
 import dad.javafx.micv.model.Telefono;
 import dad.javafx.micv.model.TipoTelefono;
 import javafx.application.Platform;
@@ -27,11 +28,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Pair;
 
 public class ContactoController implements Initializable {
@@ -39,6 +42,7 @@ public class ContactoController implements Initializable {
 	// model
 	private ObjectProperty<Contacto> contacto = new SimpleObjectProperty<>();
 	private ObjectProperty<Telefono> tlfSeleccionado = new SimpleObjectProperty<>();
+	private ObjectProperty<Email> emailSeleccionado = new SimpleObjectProperty<>();
 	
 	// view
 	@FXML
@@ -53,13 +57,13 @@ public class ContactoController implements Initializable {
     @FXML
     private TableColumn<Telefono, TipoTelefono> tcTipo;
 
+    @FXML
+    private TableView<Email> tvCorreo;
+
+    @FXML
+    private TableColumn<Email, String> tcEmail;
+
     /*
-    @FXML
-    private TableView<?> tvCorreo;
-
-    @FXML
-    private TableColumn<?, ?> tcEmail;
-
     @FXML
     private TableView<?> tvWeb;
 
@@ -81,6 +85,10 @@ public class ContactoController implements Initializable {
 		tcNumero.setCellFactory(TextFieldTableCell.forTableColumn());
 		tcTipo.setCellFactory(ComboBoxTableCell.forTableColumn(TipoTelefono.values()));
 		
+		// Configuración tabla email
+		tcEmail.setCellValueFactory(v -> v.getValue().direccionProperty());
+		tcEmail.setCellFactory(TextFieldTableCell.forTableColumn());
+		
 		this.contacto.addListener((o, ov, nv) -> onContactoChanged(o, ov, nv));
 	}
 	
@@ -88,17 +96,39 @@ public class ContactoController implements Initializable {
 		if (ov != null) {
 			tvTelefonos.itemsProperty().unbind();
 			tlfSeleccionado.unbind();
+			tvCorreo.itemsProperty().unbind();
+			emailSeleccionado.unbind();
 		}
 		
 		if (nv != null) {
 			tvTelefonos.itemsProperty().bind(nv.telefonosProperty());
 			tlfSeleccionado.bind(tvTelefonos.getSelectionModel().selectedItemProperty());
+			tvCorreo.itemsProperty().bind(nv.emailsProperty());
+			emailSeleccionado.bind(tvCorreo.getSelectionModel().selectedItemProperty());
 		}
 	}
 
 	@FXML
 	void onClickAddCorreo(ActionEvent event) {
-
+		TextInputDialog dialog = new TextInputDialog();
+		
+		dialog.setTitle("Nuevo e-mail");
+		dialog.setHeaderText("Crear una nueva dirección de correo.");
+		dialog.setContentText("E-mail:");
+		
+		Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+		stage.getIcons().add(new Image(this.getClass().getResource("/images/cv64x64.png").toString()));
+		
+		dialog.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(
+				dialog.getEditor().textProperty().isEmpty()
+		);
+		
+		Optional<String> result = dialog.showAndWait();
+		if (result.isPresent()) {
+			Email email = new Email();
+			email.setDireccion(result.get());
+			contacto.get().emailsProperty().add(email);
+		}
 	}
 
 	@FXML
@@ -106,8 +136,10 @@ public class ContactoController implements Initializable {
 		Dialog<Pair<String, TipoTelefono>> dialog = new Dialog<>();
 		
 		dialog.setTitle("Nuevo teléfono");
-		dialog.setContentText("Introduzca el nuevo número de teléfono");
-		dialog.setGraphic(new ImageView(this.getClass().getResource("/images/cv64x64.png").toString()));
+		dialog.setContentText("Introduzca el nuevo número de teléfono.");
+		
+		Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+		stage.getIcons().add(new Image(this.getClass().getResource("/images/cv64x64.png").toString()));
 		
 		ButtonType btAnadir = new ButtonType("Añadir", ButtonData.OK_DONE);
 		dialog.getDialogPane().getButtonTypes().addAll(btAnadir, ButtonType.CANCEL);
