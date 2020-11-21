@@ -230,9 +230,10 @@ public class ContactoController implements Initializable {
 		String title = "Eliminar e-mail";
 		String header = "Antes de continuar, confirme";
 		String content = "Esta operación es irreversible.\n¿Está seguro de borrar el e-mail?";
+		Email email = emailSeleccionado.get();
 		
-		if (emailSeleccionado.get() != null && App.confirm(title, header, content))
-			contacto.get().getEmails().remove(emailSeleccionado.get());
+		if (email != null && App.confirm(title, header, content))
+			contacto.get().getEmails().remove(email);
 	}
 
 	@FXML
@@ -240,9 +241,10 @@ public class ContactoController implements Initializable {
 		String title = "Eliminar teléfono";
 		String header = "Antes de continuar, confirme";
 		String content = "Esta operación es irreversible.\n¿Está seguro de borrar el teléfono?";
+		Telefono telefono = tlfSeleccionado.get();
 		
-		if (tlfSeleccionado.get() != null && App.confirm(title, header, content))
-			contacto.get().getTelefonos().remove(tlfSeleccionado.get());
+		if (telefono != null && App.confirm(title, header, content))
+			contacto.get().getTelefonos().remove(telefono);
 	}
 
 	@FXML
@@ -250,9 +252,10 @@ public class ContactoController implements Initializable {
 		String title = "Eliminar web";
 		String header = "Antes de continuar, confirme";
 		String content = "Esta operación es irreversible.\n¿Está seguro de borrar la dirección web?";
+		Web web = webSeleccionada.get();
 		
-		if (webSeleccionada.get() != null && App.confirm(title, header, content))
-			contacto.get().getWebs().remove(webSeleccionada.get());
+		if (web != null && App.confirm(title, header, content))
+			contacto.get().getWebs().remove(web);
 	}
 
 	public VBox getView() {
