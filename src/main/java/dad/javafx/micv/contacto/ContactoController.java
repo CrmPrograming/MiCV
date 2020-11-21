@@ -103,6 +103,7 @@ public class ContactoController implements Initializable {
 			tlfSeleccionado.unbind();
 			tvCorreo.itemsProperty().unbind();
 			emailSeleccionado.unbind();
+			tvWeb.itemsProperty().unbind();
 			webSeleccionada.unbind();
 		}
 		
@@ -246,6 +247,12 @@ public class ContactoController implements Initializable {
 
 	@FXML
 	void onClickRemoveWeb(ActionEvent event) {
+		String title = "Eliminar web";
+		String header = "Antes de continuar, confirme";
+		String content = "Esta operación es irreversible.\n¿Está seguro de borrar la dirección web?";
+		
+		if (webSeleccionada.get() != null && App.confirm(title, header, content))
+			contacto.get().getWebs().remove(webSeleccionada.get());
 	}
 
 	public VBox getView() {
