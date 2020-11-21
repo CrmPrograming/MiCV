@@ -10,6 +10,7 @@ import dad.javafx.micv.model.Contacto;
 import dad.javafx.micv.model.Email;
 import dad.javafx.micv.model.Telefono;
 import dad.javafx.micv.model.TipoTelefono;
+import dad.javafx.micv.model.Web;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -43,6 +44,7 @@ public class ContactoController implements Initializable {
 	private ObjectProperty<Contacto> contacto = new SimpleObjectProperty<>();
 	private ObjectProperty<Telefono> tlfSeleccionado = new SimpleObjectProperty<>();
 	private ObjectProperty<Email> emailSeleccionado = new SimpleObjectProperty<>();
+	private ObjectProperty<Web> webSeleccionada = new SimpleObjectProperty<>();
 	
 	// view
 	@FXML
@@ -62,13 +64,12 @@ public class ContactoController implements Initializable {
 
     @FXML
     private TableColumn<Email, String> tcEmail;
-
-    /*
+    
     @FXML
-    private TableView<?> tvWeb;
+    private TableView<Web> tvWeb;
 
     @FXML
-    private TableColumn<?, ?> tcURL;*/
+    private TableColumn<Web, String> tcURL;
 	
 	public ContactoController() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ContactoView.fxml"));
@@ -89,6 +90,10 @@ public class ContactoController implements Initializable {
 		tcEmail.setCellValueFactory(v -> v.getValue().direccionProperty());
 		tcEmail.setCellFactory(TextFieldTableCell.forTableColumn());
 		
+		// Configuración tabla web
+		tcURL.setCellValueFactory(v -> v.getValue().urlProperty());
+		tcURL.setCellFactory(TextFieldTableCell.forTableColumn());
+		
 		this.contacto.addListener((o, ov, nv) -> onContactoChanged(o, ov, nv));
 	}
 	
@@ -98,6 +103,7 @@ public class ContactoController implements Initializable {
 			tlfSeleccionado.unbind();
 			tvCorreo.itemsProperty().unbind();
 			emailSeleccionado.unbind();
+			webSeleccionada.unbind();
 		}
 		
 		if (nv != null) {
@@ -105,6 +111,8 @@ public class ContactoController implements Initializable {
 			tlfSeleccionado.bind(tvTelefonos.getSelectionModel().selectedItemProperty());
 			tvCorreo.itemsProperty().bind(nv.emailsProperty());
 			emailSeleccionado.bind(tvCorreo.getSelectionModel().selectedItemProperty());
+			tvWeb.itemsProperty().bind(nv.websProperty());
+			webSeleccionada.bind(tvWeb.getSelectionModel().selectedItemProperty());
 		}
 	}
 
@@ -191,7 +199,29 @@ public class ContactoController implements Initializable {
 
 	@FXML
 	void onClickAddWeb(ActionEvent event) {
-
+		TextInputDialog dialog = new TextInputDialog();
+		
+		dialog.setTitle("Nueva web");
+		dialog.setHeaderText("Crear una nueva dirección web.");
+		dialog.setContentText("URL:");
+		
+		Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+		stage.getIcons().add(new Image(this.getClass().getResource("/images/cv64x64.png").toString()));
+		
+		dialog.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(
+				dialog.getEditor().textProperty().isEmpty()
+		);
+		
+		dialog.getEditor().setText("http://");
+		
+		Platform.runLater(() -> dialog.getEditor().requestFocus());
+		
+		Optional<String> result = dialog.showAndWait();
+		if (result.isPresent()) {
+			Web web = new Web();
+			web.setUrl(result.get());
+			contacto.get().websProperty().add(web);
+		}
 	}
 
 	@FXML
