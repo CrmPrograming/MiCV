@@ -196,7 +196,12 @@ public class ContactoController implements Initializable {
 
 	@FXML
 	void onClickRemoveCorreo(ActionEvent event) {
+		String title = "Eliminar e-mail";
+		String header = "Antes de continuar, confirme";
+		String content = "Esta operación es irreversible.\n¿Está seguro de borrar el e-mail?";
 		
+		if (emailSeleccionado.get() != null && App.confirm(title, header, content))
+			contacto.get().getEmails().remove(emailSeleccionado.get());
 	}
 
 	@FXML
@@ -211,7 +216,6 @@ public class ContactoController implements Initializable {
 
 	@FXML
 	void onClickRemoveWeb(ActionEvent event) {
-
 	}
 
 	public VBox getView() {
