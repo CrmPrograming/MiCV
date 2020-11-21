@@ -51,8 +51,8 @@
       <ListView fx:id="nacionalidadList" GridPane.columnIndex="1" GridPane.rowIndex="8" />
       <VBox spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="8">
          <children>
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="+" />
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="-" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClickNuevaNacionalidad" text="+" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClickQuitarNacionalidad" text="-" />
          </children>
       </VBox>
    </children>

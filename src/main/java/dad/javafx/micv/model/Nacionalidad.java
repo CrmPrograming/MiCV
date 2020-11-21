@@ -24,4 +24,9 @@ public class Nacionalidad {
 		this.denominacionProperty().set(denominacion);
 	}
 
+	@Override
+	public String toString() {
+		return denominacion.get();
+	}
+
 }

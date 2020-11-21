@@ -12,10 +12,12 @@ public class App extends Application {
 	private static Stage primaryStage;
 	
 	private MainController controller;
-
+	
+	private static boolean inicializada;
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		
+		inicializada = false;
 		App.primaryStage = primaryStage;
 		
 		controller = new MainController();
@@ -26,11 +28,16 @@ public class App extends Application {
 		primaryStage.setTitle("MiCV");
 		primaryStage.getIcons().add(new Image("/images/cv64x64.png"));
 		primaryStage.show();
+		
+		inicializada = true;
 	}
 	
 	public static void error(String header, String content) {
 		Alert alert = new Alert(AlertType.ERROR);
-		alert.initOwner(primaryStage);
+		
+		if (inicializada)
+			alert.initOwner(primaryStage);
+
 		alert.setTitle("Error");
 		alert.setHeaderText(header);
 		alert.setContentText(content);
