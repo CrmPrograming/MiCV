@@ -95,23 +95,19 @@ public class MainController implements Initializable {
 
     @FXML
     void onAbrirAction(ActionEvent event) {
-
     	FileChooser fileChooser = new FileChooser();
     	fileChooser.setTitle("Abrir un currículum");
     	fileChooser.getExtensionFilters().add(new ExtensionFilter("Currículum (*.cv)", "*.cv"));
     	fileChooser.getExtensionFilters().add(new ExtensionFilter("Todos los archivos (*.*)", "*.*"));
     	File cvFile = fileChooser.showOpenDialog(App.getPrimaryStage());
     	if (cvFile != null) {
-    		
     		try {
     			cv.set(JSONUtils.fromJson(cvFile, CV.class));
-    			App.info("Se ha abierto el fichero " + cvFile.getName() + " correctamente.", "Pues eso...");
+    			App.info("Se ha abierto el fichero " + cvFile.getName() + " correctamente.", "Los datos cargados se encuentran en el formulario.");
 			} catch (JsonSyntaxException|IOException e) {
 				App.error("Ha ocurrido un error al abrir " + cvFile, e.getMessage());
 			}
-    		
     	}
-    	
     }
 
     @FXML
@@ -131,22 +127,18 @@ public class MainController implements Initializable {
 
     @FXML
     void onGuardarComoAction(ActionEvent event) {
-
 	    	FileChooser fileChooser = new FileChooser();
 	    	fileChooser.setTitle("Guardar un currículum");
 	    	fileChooser.getExtensionFilters().add(new ExtensionFilter("Currículum (*.cv)", "*.cv"));
 	    	fileChooser.getExtensionFilters().add(new ExtensionFilter("Todos los archivos (*.*)", "*.*"));
 	    	File cvFile = fileChooser.showSaveDialog(App.getPrimaryStage());
 	    	if (cvFile != null) {
-
 	    		try {
 	    			JSONUtils.toJson(cvFile, cv.get());
 				} catch (JsonSyntaxException|IOException e) {
 					App.error("Ha ocurrido un error al guardar " + cvFile, e.getMessage());
 				}
-	    		
 	    	}
-    	
     }
 
     @FXML

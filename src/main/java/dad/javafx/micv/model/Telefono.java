@@ -34,4 +34,12 @@ public class Telefono {
 		this.tipoTelefonoProperty().set(tipoTelefono);
 	}
 
+	@Override
+	public String toString() {
+		return "Telefono [numero=" + numero + ", tipoTelefono=" + tipoTelefono + ", numeroProperty()="
+				+ numeroProperty() + ", getNumero()=" + getNumero() + ", tipoTelefonoProperty()="
+				+ tipoTelefonoProperty() + ", getTipoTelefono()=" + getTipoTelefono() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+	}
+
 }

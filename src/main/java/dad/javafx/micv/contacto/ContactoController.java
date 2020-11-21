@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import dad.javafx.micv.App;
 import dad.javafx.micv.model.Contacto;
 import dad.javafx.micv.model.Telefono;
 import dad.javafx.micv.model.TipoTelefono;
@@ -37,9 +38,9 @@ public class ContactoController implements Initializable {
 	
 	// model
 	private ObjectProperty<Contacto> contacto = new SimpleObjectProperty<>();
+	private ObjectProperty<Telefono> tlfSeleccionado = new SimpleObjectProperty<>();
 	
 	// view
-	
 	@FXML
 	private VBox view;
 	
@@ -73,8 +74,7 @@ public class ContactoController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// Configuración tabla teléfonos
-		
+		// Configuración tabla teléfonos		
 		tcNumero.setCellValueFactory(v -> v.getValue().numeroProperty());
 		tcTipo.setCellValueFactory(v -> v.getValue().tipoTelefonoProperty());
 		
@@ -87,10 +87,12 @@ public class ContactoController implements Initializable {
 	private void onContactoChanged(ObservableValue<? extends Contacto> o, Contacto ov, Contacto nv) {
 		if (ov != null) {
 			tvTelefonos.itemsProperty().unbind();
+			tlfSeleccionado.unbind();
 		}
 		
 		if (nv != null) {
 			tvTelefonos.itemsProperty().bind(nv.telefonosProperty());
+			tlfSeleccionado.bind(tvTelefonos.getSelectionModel().selectedItemProperty());
 		}
 	}
 
@@ -162,12 +164,17 @@ public class ContactoController implements Initializable {
 
 	@FXML
 	void onClickRemoveCorreo(ActionEvent event) {
-
+		
 	}
 
 	@FXML
 	void onClickRemoveTelefono(ActionEvent event) {
-
+		String title = "Eliminar teléfono";
+		String header = "Antes de continuar, confirme";
+		String content = "Esta operación es irreversible.\n¿Está seguro de borrar el teléfono?";
+		
+		if (tlfSeleccionado.get() != null && App.confirm(title, header, content))
+			contacto.get().getTelefonos().remove(tlfSeleccionado.get());
 	}
 
 	@FXML
