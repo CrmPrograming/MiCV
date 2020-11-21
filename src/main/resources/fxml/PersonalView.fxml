@@ -43,12 +43,12 @@
       <TextField fx:id="identificacionText" GridPane.columnIndex="1" GridPane.columnSpan="2" />
       <TextField fx:id="nombreText" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
       <TextField fx:id="apellidosText" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-      <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <TextArea prefRowCount="2" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" />
-      <TextField maxWidth="100.0" prefColumnCount="5" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="5" />
-      <TextField GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6" />
-      <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-      <ListView GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      <DatePicker fx:id="fechaNacimientoDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <TextArea fx:id="direccionTextArea" prefRowCount="2" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+      <TextField fx:id="codPostalText" maxWidth="100.0" prefColumnCount="5" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="5" />
+      <TextField fx:id="localidadText" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+      <ComboBox fx:id="paisCombo" prefWidth="150.0" promptText="Seleccione un país" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <ListView fx:id="nacionalidadList" GridPane.columnIndex="1" GridPane.rowIndex="8" />
       <VBox spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="8">
          <children>
             <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="+" />

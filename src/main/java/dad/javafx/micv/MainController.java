@@ -10,6 +10,7 @@ import com.google.gson.JsonSyntaxException;
 import dad.javafx.micv.model.CV;
 import dad.javafx.micv.personal.PersonalController;
 import dad.javafx.micv.utils.JSONUtils;
+import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
@@ -115,7 +116,7 @@ public class MainController implements Initializable {
 
     @FXML
     void onCerrarAction(ActionEvent event) {
-
+    	Platform.exit();
     }
 
     @FXML
