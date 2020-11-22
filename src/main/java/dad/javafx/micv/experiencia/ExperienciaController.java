@@ -1,4 +1,4 @@
-package dad.javafx.micv.formacion;
+package dad.javafx.micv.experiencia;
 
 import java.io.IOException;
 import java.net.URL;
@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import dad.javafx.micv.App;
-import dad.javafx.micv.model.Titulo;
+import dad.javafx.micv.model.Experiencia;
 import dad.javafx.micv.utils.ResultadosDialogo;
 import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
@@ -39,12 +39,12 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.converter.LocalDateStringConverter;
 
-public class FormacionController implements Initializable {
+public class ExperienciaController implements Initializable {
 
 	// model
 
-	private ListProperty<Titulo> titulos = new SimpleListProperty<>(FXCollections.observableArrayList());
-	private ObjectProperty<Titulo> seleccionado = new SimpleObjectProperty<>();
+	private ListProperty<Experiencia> experiencias = new SimpleListProperty<>(FXCollections.observableArrayList());
+	private ObjectProperty<Experiencia> seleccionado = new SimpleObjectProperty<>();
 
 	// view
 
@@ -52,19 +52,19 @@ public class FormacionController implements Initializable {
 	private BorderPane view;
 
 	@FXML
-	private TableView<Titulo> tvFormacion;
+	private TableView<Experiencia> tvExperiencia;
 	
 	@FXML
-    private TableColumn<Titulo, LocalDate> tcDesde;
+    private TableColumn<Experiencia, LocalDate> tcDesde;
 
     @FXML
-    private TableColumn<Titulo, LocalDate> tcHasta;
+    private TableColumn<Experiencia, LocalDate> tcHasta;
 
     @FXML
-    private TableColumn<Titulo, String> tcDenominacion;
+    private TableColumn<Experiencia, String> tcDenominacion;
 
     @FXML
-    private TableColumn<Titulo, String> tcOrganizador;
+    private TableColumn<Experiencia, String> tcEmpleador;
 
 	@FXML
 	private Button btAnadir;
@@ -72,8 +72,8 @@ public class FormacionController implements Initializable {
 	@FXML
 	private Button btEliminar;
 
-	public FormacionController() throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/FormacionView.fxml"));
+	public ExperienciaController() throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ExperienciaView.fxml"));
 		loader.setController(this);
 		loader.load();
 	}
@@ -83,25 +83,25 @@ public class FormacionController implements Initializable {
 		tcDesde.setCellValueFactory(v -> v.getValue().desdeProperty());
 		tcHasta.setCellValueFactory(v -> v.getValue().hastaProperty());
 		tcDenominacion.setCellValueFactory(v -> v.getValue().denominacionProperty());
-		tcOrganizador.setCellValueFactory(v -> v.getValue().organizadorProperty());
+		tcEmpleador.setCellValueFactory(v -> v.getValue().empleadorProperty());
 		
 		tcDesde.setCellFactory(TextFieldTableCell.forTableColumn(new LocalDateStringConverter()));
 		tcHasta.setCellFactory(TextFieldTableCell.forTableColumn(new LocalDateStringConverter()));
 		tcDenominacion.setCellFactory(TextFieldTableCell.forTableColumn());
-		tcOrganizador.setCellFactory(TextFieldTableCell.forTableColumn());
+		tcEmpleador.setCellFactory(TextFieldTableCell.forTableColumn());
 		
-		this.titulos.addListener((o, ov, nv) -> onTituloChanged(o, ov, nv));
+		this.experiencias.addListener((o, ov, nv) -> onTituloChanged(o, ov, nv));
 	}
 
-	private void onTituloChanged(ObservableValue<? extends ObservableList<Titulo>> o, ObservableList<Titulo> ov, ObservableList<Titulo> nv) {
+	private void onTituloChanged(ObservableValue<? extends ObservableList<Experiencia>> o, ObservableList<Experiencia> ov, ObservableList<Experiencia> nv) {
 		if (ov != null) {
-			tvFormacion.setItems(null);
+			tvExperiencia.setItems(null);
 			seleccionado.unbind();
 		}
 		
 		if (nv != null) {
-			tvFormacion.setItems(nv);
-			seleccionado.bind(tvFormacion.getSelectionModel().selectedItemProperty());
+			tvExperiencia.setItems(nv);
+			seleccionado.bind(tvExperiencia.getSelectionModel().selectedItemProperty());
 		}
 
 	}
@@ -110,7 +110,7 @@ public class FormacionController implements Initializable {
 	void onClickAnadir(ActionEvent event) {
 		Dialog<ResultadosDialogo> dialog = new Dialog<>();
 		
-		dialog.setTitle("Nuevo título");
+		dialog.setTitle("Nueva experiencia");
 		
 		Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
 		stage.getIcons().add(new Image(this.getClass().getResource("/images/cv64x64.png").toString()));
@@ -124,7 +124,7 @@ public class FormacionController implements Initializable {
 		grid.setPadding(new Insets(20, 150, 10, 10));
 		
 		TextField tfDenominacion = new TextField();
-		TextField tfOrganizador = new TextField();
+		TextField tfEmpleador = new TextField();
 		
 		DatePicker dpDesde = new DatePicker();
 		DatePicker dpHasta = new DatePicker();
@@ -134,14 +134,14 @@ public class FormacionController implements Initializable {
 		
 		nodeBtAnadir.disableProperty().bind(
 				tfDenominacion.textProperty().isEmpty().or(
-				tfOrganizador.textProperty().isEmpty()).or(
+				tfEmpleador.textProperty().isEmpty()).or(
 				dpDesde.valueProperty().isNull()).or(
 				dpHasta.valueProperty().isNull()));
 		
 		grid.add(new Label("Denominación"), 0, 0);
 		grid.add(tfDenominacion, 1, 0);
-		grid.add(new Label("Organizador"), 0, 1);
-		grid.add(tfOrganizador, 1, 1);
+		grid.add(new Label("Empleador"), 0, 1);
+		grid.add(tfEmpleador, 1, 1);
 		grid.add(new Label("Desde"), 0, 2);
 		grid.add(dpDesde, 1, 2);
 		grid.add(new Label("Hasta"), 0, 3);
@@ -155,7 +155,7 @@ public class FormacionController implements Initializable {
 			if (dialogButton == btCrear) {
 				return new ResultadosDialogo(
 						tfDenominacion.getText(),
-						tfOrganizador.getText(),
+						tfEmpleador.getText(),
 						dpDesde.getValue(),
 						dpHasta.getValue());
 			}
@@ -165,12 +165,12 @@ public class FormacionController implements Initializable {
 		Optional<ResultadosDialogo> result = dialog.showAndWait();
 		
 		if (result.isPresent()) {
-			Titulo resultado = new Titulo();
+			Experiencia resultado = new Experiencia();
 			resultado.setDenominacion(result.get().getPrimero());
-			resultado.setOrganizador(result.get().getSegundo());
+			resultado.setEmpleador(result.get().getSegundo());
 			resultado.setDesde(result.get().getDesde());
 			resultado.setHasta(result.get().getHasta());
-			titulos.get().add(resultado);
+			experiencias.get().add(resultado);
 		}
 	}
 
@@ -178,29 +178,30 @@ public class FormacionController implements Initializable {
 	void onClickEliminar(ActionEvent event) {
 		String title = "Eliminar formación";
 		String header = "Antes de continuar, confirme";
-		String content = "Esta operación es irreversible.\n¿Está seguro de borrar la formación?";
-		Titulo formacion = seleccionado.get();
+		String content = "Esta operación es irreversible.\n¿Está seguro de borrar la experiencia?";
+		Experiencia formacion = seleccionado.get();
 		
 		if (formacion != null && App.confirm(title, header, content))
-			titulos.get().remove(formacion);
+			experiencias.get().remove(formacion);
 	}
 
 	public BorderPane getView() {
 		return view;
 	}
 
-	public final ListProperty<Titulo> titulosProperty() {
-		return this.titulos;
+	public final ListProperty<Experiencia> experienciasProperty() {
+		return this.experiencias;
 	}
 	
 
-	public final ObservableList<Titulo> getTitulos() {
-		return this.titulosProperty().get();
+	public final ObservableList<Experiencia> getExperiencias() {
+		return this.experienciasProperty().get();
 	}
 	
 
-	public final void setTitulos(final ObservableList<Titulo> titulos) {
-		this.titulosProperty().set(titulos);
+	public final void setExperiencias(final ObservableList<Experiencia> experiencias) {
+		this.experienciasProperty().set(experiencias);
 	}
+	
 
 }
