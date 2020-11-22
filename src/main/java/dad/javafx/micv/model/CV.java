@@ -7,6 +7,7 @@ public class CV {
 
 	private ObjectProperty<Personal> personal = new SimpleObjectProperty<Personal>(new Personal());
 	private ObjectProperty<Contacto> contacto = new SimpleObjectProperty<Contacto>(new Contacto());
+	private ObjectProperty<Titulo> titulo = new SimpleObjectProperty<Titulo>(new Titulo());
 
 	public final ObjectProperty<Personal> personalProperty() {
 		return this.personal;
@@ -32,6 +33,20 @@ public class CV {
 
 	public final void setContacto(final Contacto contacto) {
 		this.contactoProperty().set(contacto);
+	}
+
+	public final ObjectProperty<Titulo> tituloProperty() {
+		return this.titulo;
+	}
+	
+
+	public final Titulo getTitulo() {
+		return this.tituloProperty().get();
+	}
+	
+
+	public final void setTitulo(final Titulo titulo) {
+		this.tituloProperty().set(titulo);
 	}
 	
 }

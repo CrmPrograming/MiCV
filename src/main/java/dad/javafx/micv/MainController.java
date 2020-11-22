@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import com.google.gson.JsonSyntaxException;
 
 import dad.javafx.micv.contacto.ContactoController;
+import dad.javafx.micv.formacion.FormacionController;
 import dad.javafx.micv.model.CV;
 import dad.javafx.micv.personal.PersonalController;
 import dad.javafx.micv.utils.JSONUtils;
@@ -30,6 +31,7 @@ public class MainController implements Initializable {
 	
 	private PersonalController personalController = new PersonalController();
 	private ContactoController contactoController = new ContactoController();
+	private FormacionController tituloController = new FormacionController();
 	
 	// model
 	
@@ -66,6 +68,7 @@ public class MainController implements Initializable {
 
 		personalTab.setContent(personalController.getView());
 		contactoTab.setContent(contactoController.getView());
+		formacionTab.setContent(tituloController.getView());
 		
 		cv.addListener((o, ov, nv) -> onCVChanged(o, ov, nv));
 		
@@ -78,6 +81,7 @@ public class MainController implements Initializable {
 			personalController.personalProperty().unbind();
 			// TODO desbindear el resto de controladores
 			contactoController.contactoProperty().unbind();
+			tituloController.tituloProperty().unbind();
 			
 		}
 		
@@ -85,6 +89,7 @@ public class MainController implements Initializable {
 			personalController.personalProperty().bind(nv.personalProperty());
 			// TODO bindear el resto de controladores
 			contactoController.contactoProperty().bind(nv.contactoProperty());
+			tituloController.tituloProperty().bind(nv.tituloProperty());
 		}
 		
 	}
