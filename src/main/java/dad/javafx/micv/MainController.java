@@ -112,7 +112,7 @@ public class MainController implements Initializable {
 
     @FXML
     void onAcercaDeAction(ActionEvent event) {
-
+    	// TODO Implementar
     }
 
     @FXML
@@ -122,7 +122,7 @@ public class MainController implements Initializable {
 
     @FXML
     void onGuardarAction(ActionEvent event) {
-
+    	// TODO Implementar
     }
 
     @FXML
