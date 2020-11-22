@@ -1,13 +1,17 @@
 package dad.javafx.micv.model;
 
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class CV {
 
 	private ObjectProperty<Personal> personal = new SimpleObjectProperty<Personal>(new Personal());
 	private ObjectProperty<Contacto> contacto = new SimpleObjectProperty<Contacto>(new Contacto());
-	private ObjectProperty<Titulo> titulo = new SimpleObjectProperty<Titulo>(new Titulo());
+	private ListProperty<Titulo> titulos = new SimpleListProperty<Titulo>(FXCollections.observableArrayList());
 
 	public final ObjectProperty<Personal> personalProperty() {
 		return this.personal;
@@ -35,19 +39,19 @@ public class CV {
 		this.contactoProperty().set(contacto);
 	}
 
-	public final ObjectProperty<Titulo> tituloProperty() {
-		return this.titulo;
+	public final ListProperty<Titulo> titulosProperty() {
+		return this.titulos;
 	}
 	
 
-	public final Titulo getTitulo() {
-		return this.tituloProperty().get();
+	public final ObservableList<Titulo> getTitulos() {
+		return this.titulosProperty().get();
 	}
 	
 
-	public final void setTitulo(final Titulo titulo) {
-		this.tituloProperty().set(titulo);
-	}
+	public final void setTitulos(final ObservableList<Titulo> titulos) {
+		this.titulosProperty().set(titulos);
+	}	
 	
 }
 

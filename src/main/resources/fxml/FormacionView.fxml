@@ -7,15 +7,14 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane fx:id="view" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="640.0" prefWidth="480.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+<BorderPane fx:id="view" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="640.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <TableView fx:id="tvFormacion" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn prefWidth="75.0" text="Desde" />
-          <TableColumn prefWidth="75.0" text="Hasta" />
-            <TableColumn prefWidth="100.0" text="Denominación" />
-            <TableColumn prefWidth="100.0" text="Organizador" />
+          <TableColumn fx:id="tcDesde" prefWidth="75.0" text="Desde" />
+          <TableColumn fx:id="tcHasta" prefWidth="75.0" text="Hasta" />
+            <TableColumn fx:id="tcDenominacion" prefWidth="100.0" text="Denominación" />
+            <TableColumn fx:id="tcOrganizador" prefWidth="100.0" text="Organizador" />
         </columns>
       </TableView>
    </center>

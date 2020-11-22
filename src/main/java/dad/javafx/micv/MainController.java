@@ -89,7 +89,7 @@ public class MainController implements Initializable {
 			personalController.personalProperty().bind(nv.personalProperty());
 			// TODO bindear el resto de controladores
 			contactoController.contactoProperty().bind(nv.contactoProperty());
-			tituloController.tituloProperty().bind(nv.tituloProperty());
+			tituloController.tituloProperty().bind(nv.titulosProperty());
 		}
 		
 	}
