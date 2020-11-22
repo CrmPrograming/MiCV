@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import dad.javafx.micv.App;
 import dad.javafx.micv.model.Titulo;
 import dad.javafx.micv.utils.ResultadosDialogo;
 import javafx.application.Platform;
@@ -175,7 +176,13 @@ public class FormacionController implements Initializable {
 
 	@FXML
 	void onClickEliminar(ActionEvent event) {
-
+		String title = "Eliminar formación";
+		String header = "Antes de continuar, confirme";
+		String content = "Esta operación es irreversible.\n¿Está seguro de borrar la formación?";
+		Titulo formacion = seleccionado.get();
+		
+		if (formacion != null && App.confirm(title, header, content))
+			titulo.get().remove(formacion);
 	}
 
 	public BorderPane getView() {
