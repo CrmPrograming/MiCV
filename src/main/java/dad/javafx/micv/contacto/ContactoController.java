@@ -6,11 +6,11 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import dad.javafx.micv.App;
-import dad.javafx.micv.model.Contacto;
-import dad.javafx.micv.model.Email;
-import dad.javafx.micv.model.Telefono;
-import dad.javafx.micv.model.TipoTelefono;
-import dad.javafx.micv.model.Web;
+import dad.javafx.micv.model.contacto.Contacto;
+import dad.javafx.micv.model.contacto.Email;
+import dad.javafx.micv.model.contacto.Telefono;
+import dad.javafx.micv.model.contacto.TipoTelefono;
+import dad.javafx.micv.model.contacto.Web;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;

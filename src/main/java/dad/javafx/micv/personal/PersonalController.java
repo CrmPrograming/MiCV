@@ -8,8 +8,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import dad.javafx.micv.App;
-import dad.javafx.micv.model.Nacionalidad;
-import dad.javafx.micv.model.Personal;
+import dad.javafx.micv.model.personal.Nacionalidad;
+import dad.javafx.micv.model.personal.Personal;
 import dad.javafx.micv.utils.LectorCSV;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;

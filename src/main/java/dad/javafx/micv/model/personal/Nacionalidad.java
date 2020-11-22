@@ -1,4 +1,4 @@
-package dad.javafx.micv.model;
+package dad.javafx.micv.model.personal;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

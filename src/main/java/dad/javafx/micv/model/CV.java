@@ -1,5 +1,7 @@
 package dad.javafx.micv.model;
 
+import dad.javafx.micv.model.contacto.Contacto;
+import dad.javafx.micv.model.personal.Personal;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;

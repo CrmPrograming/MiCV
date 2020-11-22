@@ -1,4 +1,4 @@
-package dad.javafx.micv.model;
+package dad.javafx.micv.model.contacto;
 
 public enum TipoTelefono {	
 	DOMICILIO,
