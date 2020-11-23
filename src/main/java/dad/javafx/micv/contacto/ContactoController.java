@@ -62,7 +62,7 @@ public class ContactoController implements Initializable {
     private TableColumn<Telefono, TipoTelefono> tcTipo;
     
     @FXML
-    private Button btnEliminarTelefono;
+    private Button btEliminarTelefono;
     
     @FXML
     private TableView<Email> tvCorreo;
@@ -71,7 +71,7 @@ public class ContactoController implements Initializable {
     private TableColumn<Email, String> tcEmail;
     
     @FXML
-    private Button btnEliminarCorreo;
+    private Button btEliminarCorreo;
     
     @FXML
     private TableView<Web> tvWeb;
@@ -80,7 +80,7 @@ public class ContactoController implements Initializable {
     private TableColumn<Web, String> tcURL;
     
     @FXML
-    private Button btnEliminarWeb;
+    private Button btEliminarWeb;
 	
 	public ContactoController() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ContactoView.fxml"));
@@ -116,9 +116,9 @@ public class ContactoController implements Initializable {
 			emailSeleccionado.unbind();
 			tvWeb.itemsProperty().unbind();
 			webSeleccionada.unbind();
-			btnEliminarTelefono.disableProperty().unbind();
-			btnEliminarCorreo.disableProperty().unbind();
-			btnEliminarWeb.disableProperty().unbind();
+			btEliminarTelefono.disableProperty().unbind();
+			btEliminarCorreo.disableProperty().unbind();
+			btEliminarWeb.disableProperty().unbind();
 		}
 		
 		if (nv != null) {
@@ -128,9 +128,9 @@ public class ContactoController implements Initializable {
 			emailSeleccionado.bind(tvCorreo.getSelectionModel().selectedItemProperty());
 			tvWeb.itemsProperty().bind(nv.websProperty());
 			webSeleccionada.bind(tvWeb.getSelectionModel().selectedItemProperty());
-			btnEliminarTelefono.disableProperty().bind(Bindings.isEmpty(tvTelefonos.getItems()));
-			btnEliminarCorreo.disableProperty().bind(Bindings.isEmpty(tvCorreo.getItems()));
-			btnEliminarWeb.disableProperty().bind(Bindings.isEmpty(tvWeb.getItems()));
+			btEliminarTelefono.disableProperty().bind(Bindings.isEmpty(tvTelefonos.getItems()));
+			btEliminarCorreo.disableProperty().bind(Bindings.isEmpty(tvCorreo.getItems()));
+			btEliminarWeb.disableProperty().bind(Bindings.isEmpty(tvWeb.getItems()));
 		}
 	}
 

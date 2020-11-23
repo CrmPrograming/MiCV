@@ -21,7 +21,7 @@
                   <VBox prefHeight="200.0" spacing="5.0" BorderPane.alignment="CENTER">
                      <children>
                         <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClickAddTelefono" text="Añadir" />
-                        <Button fx:id="btnEliminarTelefono" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClickRemoveTelefono" text="Eliminar" />
+                        <Button fx:id="btEliminarTelefono" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClickRemoveTelefono" text="Eliminar" />
                      </children>
                      <padding>
                         <Insets left="5.0" />
@@ -49,7 +49,7 @@
                   <VBox prefHeight="200.0" spacing="5.0" BorderPane.alignment="CENTER">
                      <children>
                         <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClickAddCorreo" text="Añadir" />
-                        <Button fx:id="btnEliminarCorreo" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClickRemoveCorreo" text="Eliminar" />
+                        <Button fx:id="btEliminarCorreo" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClickRemoveCorreo" text="Eliminar" />
                      </children>
                      <padding>
                         <Insets left="5.0" />
@@ -76,7 +76,7 @@
                   <VBox prefHeight="200.0" spacing="5.0" BorderPane.alignment="CENTER">
                      <children>
                         <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClickAddWeb" text="Añadir" />
-                        <Button fx:id="btnEliminarWeb" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClickRemoveWeb" text="Eliminar" />
+                        <Button fx:id="btEliminarWeb" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClickRemoveWeb" text="Eliminar" />
                      </children>
                      <padding>
                         <Insets left="5.0" />

@@ -10,6 +10,7 @@ import dad.javafx.micv.App;
 import dad.javafx.micv.model.Experiencia;
 import dad.javafx.micv.utils.ResultadosDialogo;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -97,11 +98,13 @@ public class ExperienciaController implements Initializable {
 		if (ov != null) {
 			tvExperiencia.setItems(null);
 			seleccionado.unbind();
+			btEliminar.disableProperty().unbind();
 		}
 		
 		if (nv != null) {
 			tvExperiencia.setItems(nv);
 			seleccionado.bind(tvExperiencia.getSelectionModel().selectedItemProperty());
+			btEliminar.disableProperty().bind(Bindings.isEmpty(tvExperiencia.getItems()));
 		}
 
 	}
