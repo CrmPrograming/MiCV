@@ -12,6 +12,7 @@ import dad.javafx.micv.model.personal.Nacionalidad;
 import dad.javafx.micv.model.personal.Personal;
 import dad.javafx.micv.utils.LectorCSV;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
@@ -19,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -67,6 +69,9 @@ public class PersonalController implements Initializable {
     private ListView<Nacionalidad> nacionalidadList;
     
     private List<String> listadoNacionalidades = new ArrayList<>();
+    
+    @FXML
+    private Button btEliminarNacionalidad;
 
 	public PersonalController() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PersonalView.fxml"));
@@ -92,6 +97,8 @@ public class PersonalController implements Initializable {
 			App.error("Listado de nacionalidades no disponible.", e.getLocalizedMessage());
 			Platform.exit();
 		}
+		
+		
 
 		this.personal.addListener((o, ov, nv) -> onPersonalChanged(o, ov, nv));
 		
@@ -110,6 +117,7 @@ public class PersonalController implements Initializable {
 			paisCombo.valueProperty().unbindBidirectional(ov.paisProperty());
 			nacionalidadList.itemsProperty().unbind();
 			nacionalidadSeleccionada.unbind();
+			btEliminarNacionalidad.disableProperty().unbind();
 		}
 
 		if (nv != null) {
@@ -123,6 +131,7 @@ public class PersonalController implements Initializable {
 			paisCombo.valueProperty().bindBidirectional(nv.paisProperty());
 			nacionalidadList.itemsProperty().bind(nv.nacionalidadesProperty());
 			nacionalidadSeleccionada.bind(nacionalidadList.getSelectionModel().selectedItemProperty());
+			btEliminarNacionalidad.disableProperty().bind(Bindings.isEmpty(nacionalidadList.getItems()));
 		}
 		
 	}

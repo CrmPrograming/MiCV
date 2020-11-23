@@ -26,6 +26,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -34,7 +35,6 @@ import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
@@ -48,7 +48,7 @@ public class ContactoController implements Initializable {
 	
 	// view
 	@FXML
-	private VBox view;
+	private SplitPane view;
 	
 	@FXML
     private TableView<Telefono> tvTelefonos;
@@ -258,11 +258,11 @@ public class ContactoController implements Initializable {
 			contacto.get().getWebs().remove(web);
 	}
 
-	public VBox getView() {
+	public SplitPane getView() {
 		return view;
 	}
 
-	public void setView(VBox view) {
+	public void setView(SplitPane view) {
 		this.view = view;
 	}
 
