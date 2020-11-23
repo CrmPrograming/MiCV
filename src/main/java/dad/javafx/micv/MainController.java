@@ -7,11 +7,11 @@ import java.util.ResourceBundle;
 
 import com.google.gson.JsonSyntaxException;
 
-import dad.javafx.micv.contacto.ContactoController;
-import dad.javafx.micv.experiencia.ExperienciaController;
-import dad.javafx.micv.formacion.FormacionController;
+import dad.javafx.micv.controller.ContactoController;
+import dad.javafx.micv.controller.ExperienciaController;
+import dad.javafx.micv.controller.FormacionController;
+import dad.javafx.micv.controller.PersonalController;
 import dad.javafx.micv.model.CV;
-import dad.javafx.micv.personal.PersonalController;
 import dad.javafx.micv.utils.JSONUtils;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
