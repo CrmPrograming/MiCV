@@ -22,6 +22,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -37,7 +38,9 @@ import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
 public class ConocimientosController implements Initializable {
@@ -106,6 +109,8 @@ public class ConocimientosController implements Initializable {
 		
 		Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
 		stage.getIcons().add(new Image(this.getClass().getResource("/images/cv64x64.png").toString()));
+		stage.setMinWidth(550);
+		stage.setMinHeight(300);
 		
 		ButtonType btCrear = new ButtonType("Crear", ButtonData.OK_DONE);
 		dialog.getDialogPane().getButtonTypes().addAll(btCrear, ButtonType.CANCEL);
@@ -113,7 +118,7 @@ public class ConocimientosController implements Initializable {
 		GridPane grid = new GridPane();
 		grid.setHgap(5);
 		grid.setVgap(10);
-		grid.setPadding(new Insets(20, 150, 10, 10));
+		grid.setPadding(new Insets(20, 10, 10, 10));
 		
 		TextField tfDenominacion = new TextField();
 		ComboBox<Nivel> cbNivel = new ComboBox<>();
@@ -139,6 +144,19 @@ public class ConocimientosController implements Initializable {
 		grid.add(btLimpiarCombo, 2, 1);
 		
 		GridPane.setColumnSpan(tfDenominacion, 2);
+		
+		ColumnConstraints[] cols = {
+				new ColumnConstraints(),
+				new ColumnConstraints(),
+				new ColumnConstraints()
+		};
+		
+		cols[0].setHalignment(HPos.RIGHT);
+		cols[2].setHgrow(Priority.ALWAYS);
+		cols[2].setFillWidth(true);
+		cols[2].setHalignment(HPos.LEFT);
+		
+		grid.getColumnConstraints().setAll(cols);
 		
 		dialog.getDialogPane().setContent(grid);
 		

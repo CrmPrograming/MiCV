@@ -22,6 +22,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -36,7 +37,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 import javafx.util.converter.LocalDateStringConverter;
 
@@ -117,6 +120,8 @@ public class FormacionController implements Initializable {
 		
 		Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
 		stage.getIcons().add(new Image(this.getClass().getResource("/images/cv64x64.png").toString()));
+		stage.setMinWidth(550);
+		stage.setMinHeight(200);
 		
 		ButtonType btCrear = new ButtonType("Crear", ButtonData.OK_DONE);
 		dialog.getDialogPane().getButtonTypes().addAll(btCrear, ButtonType.CANCEL);
@@ -124,7 +129,7 @@ public class FormacionController implements Initializable {
 		GridPane grid = new GridPane();
 		grid.setHgap(10);
 		grid.setVgap(10);
-		grid.setPadding(new Insets(20, 150, 10, 10));
+		grid.setPadding(new Insets(20, 10, 10, 10));
 		
 		TextField tfDenominacion = new TextField();
 		TextField tfOrganizador = new TextField();
@@ -149,6 +154,21 @@ public class FormacionController implements Initializable {
 		grid.add(dpDesde, 1, 2);
 		grid.add(new Label("Hasta"), 0, 3);
 		grid.add(dpHasta, 1, 3);
+		
+		GridPane.setColumnSpan(tfDenominacion, 2);
+		GridPane.setColumnSpan(tfOrganizador, 2);
+		
+		ColumnConstraints[] cols = {
+				new ColumnConstraints(),
+				new ColumnConstraints(),
+				new ColumnConstraints()
+		};
+		
+		cols[0].setHalignment(HPos.RIGHT);
+		cols[1].setHgrow(Priority.ALWAYS);
+		cols[1].setFillWidth(true);
+		
+		grid.getColumnConstraints().setAll(cols);
 		
 		dialog.getDialogPane().setContent(grid);
 		
