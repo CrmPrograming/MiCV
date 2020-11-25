@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 
 import dad.javafx.micv.App;
 import dad.javafx.micv.model.Experiencia;
-import dad.javafx.micv.utils.ResultadosDialogo;
+import dad.javafx.micv.utils.ResultadosDialogoConFechas;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ListProperty;
@@ -111,7 +111,7 @@ public class ExperienciaController implements Initializable {
 
 	@FXML
 	void onClickAnadir(ActionEvent event) {
-		Dialog<ResultadosDialogo> dialog = new Dialog<>();
+		Dialog<ResultadosDialogoConFechas> dialog = new Dialog<>();
 		
 		dialog.setTitle("Nueva experiencia");
 		
@@ -156,7 +156,7 @@ public class ExperienciaController implements Initializable {
 		
 		dialog.setResultConverter(dialogButton -> {
 			if (dialogButton == btCrear) {
-				return new ResultadosDialogo(
+				return new ResultadosDialogoConFechas(
 						tfDenominacion.getText(),
 						tfEmpleador.getText(),
 						dpDesde.getValue(),
@@ -165,7 +165,7 @@ public class ExperienciaController implements Initializable {
 			return null;
 		});
 		
-		Optional<ResultadosDialogo> result = dialog.showAndWait();
+		Optional<ResultadosDialogoConFechas> result = dialog.showAndWait();
 		
 		if (result.isPresent()) {
 			Experiencia resultado = new Experiencia();

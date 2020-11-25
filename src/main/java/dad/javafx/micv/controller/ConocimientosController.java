@@ -2,10 +2,14 @@ package dad.javafx.micv.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import dad.javafx.micv.App;
 import dad.javafx.micv.model.conocimiento.Conocimiento;
 import dad.javafx.micv.model.conocimiento.Nivel;
+import dad.javafx.micv.utils.ResultadosDialogoConocimiento;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
@@ -18,10 +22,23 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.ComboBoxTableCell;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 public class ConocimientosController implements Initializable {
 
@@ -58,7 +75,12 @@ public class ConocimientosController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		tcDenominacion.setCellValueFactory(v -> v.getValue().denominacionProperty());
+		tcNivel.setCellValueFactory(v -> v.getValue().nivelProperty());
+		
+		tcDenominacion.setCellFactory(TextFieldTableCell.forTableColumn());
+		tcNivel.setCellFactory(ComboBoxTableCell.forTableColumn(Nivel.values()));
+		
 		this.conocimientos.addListener((o, ov, nv) -> onConocimientoChanged(o, ov, nv));
 	}
 	
@@ -78,7 +100,68 @@ public class ConocimientosController implements Initializable {
 	
 	@FXML
 	void onClickAnadirConocimiento(ActionEvent event) {
+		Dialog<ResultadosDialogoConocimiento> dialog = new Dialog<>();
 		
+		dialog.setTitle("Nuevo conocimiento");
+		
+		Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+		stage.getIcons().add(new Image(this.getClass().getResource("/images/cv64x64.png").toString()));
+		
+		ButtonType btCrear = new ButtonType("Crear", ButtonData.OK_DONE);
+		dialog.getDialogPane().getButtonTypes().addAll(btCrear, ButtonType.CANCEL);
+		
+		GridPane grid = new GridPane();
+		grid.setHgap(5);
+		grid.setVgap(10);
+		grid.setPadding(new Insets(20, 150, 10, 10));
+		
+		TextField tfDenominacion = new TextField();
+		ComboBox<Nivel> cbNivel = new ComboBox<>();
+		Button btLimpiarCombo = new Button("X");
+		
+		cbNivel.getItems().addAll(Nivel.values());
+		
+		Node nodeBtAnadir = dialog.getDialogPane().lookupButton(btCrear);
+		nodeBtAnadir.setDisable(true);
+		
+		nodeBtAnadir.disableProperty().bind(
+				tfDenominacion.textProperty().isEmpty().or(
+				cbNivel.valueProperty().isNull()));
+		
+		btLimpiarCombo.setOnAction(e -> {
+			cbNivel.setValue(null);
+		});
+		
+		grid.add(new Label("Denominación"), 0, 0);
+		grid.add(tfDenominacion, 1, 0);
+		grid.add(new Label("Nivel"), 0, 1);
+		grid.add(cbNivel, 1, 1);
+		grid.add(btLimpiarCombo, 2, 1);
+		
+		GridPane.setColumnSpan(tfDenominacion, 2);
+		
+		dialog.getDialogPane().setContent(grid);
+		
+		Platform.runLater(() -> tfDenominacion.requestFocus());
+		
+		dialog.setResultConverter(dialogButton -> {
+			if (dialogButton == btCrear) {
+				return new ResultadosDialogoConocimiento(
+						tfDenominacion.getText(),
+						cbNivel.getValue(),
+						null);
+			}
+			return null;
+		});
+		
+		Optional<ResultadosDialogoConocimiento> result = dialog.showAndWait();
+		
+		if (result.isPresent()) {
+			Conocimiento conocimiento = new Conocimiento();
+			conocimiento.setDenominacion(result.get().getDenominacion());
+			conocimiento.setNivel(result.get().getNivel());
+			conocimientos.get().add(conocimiento);
+		}
 	}
 	
 	@FXML
@@ -88,7 +171,13 @@ public class ConocimientosController implements Initializable {
 	
 	@FXML
 	void onClickEliminar(ActionEvent event) {
+		String title = "Eliminar conocimiento";
+		String header = "Antes de continuar, confirme";
+		String content = "Esta operación es irreversible.\n¿Está seguro de borrar el conocimiento?";
+		Conocimiento conocimiento = seleccionado.get();
 		
+		if (conocimiento != null && App.confirm(title, header, content))
+			conocimientos.get().remove(conocimiento);
 	}
 	
 	public BorderPane getView() {

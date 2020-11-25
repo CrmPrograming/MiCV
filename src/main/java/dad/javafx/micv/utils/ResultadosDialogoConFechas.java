@@ -2,14 +2,14 @@ package dad.javafx.micv.utils;
 
 import java.time.LocalDate;
 
-public class ResultadosDialogo {
+public class ResultadosDialogoConFechas {
 		
 	private String primero;
 	private String segundo;
 	private LocalDate desde;
 	private LocalDate hasta;
 	
-	public ResultadosDialogo(String primero, String segundo, LocalDate desde, LocalDate hasta) {
+	public ResultadosDialogoConFechas(String primero, String segundo, LocalDate desde, LocalDate hasta) {
 		this.primero = primero;
 		this.segundo = segundo;
 		this.desde = desde;
