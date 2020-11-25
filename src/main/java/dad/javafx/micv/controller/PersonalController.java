@@ -143,7 +143,6 @@ public class PersonalController implements Initializable {
 		dialog.setTitle("Nueva nacionalidad");
 		dialog.setHeaderText("Añadir nacionalidad");
 		dialog.setContentText("Seleccione una nacionalidad");
-		dialog.initOwner(App.getPrimaryStage());
 		
 		Optional<String> result = dialog.showAndWait();
 		

@@ -117,7 +117,6 @@ public class FormacionController implements Initializable {
 		Dialog<ResultadosDialogoConFechas> dialog = new Dialog<>();
 		
 		dialog.setTitle("Nuevo título");
-		dialog.initOwner(App.getPrimaryStage());
 		
 		Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
 		stage.getIcons().add(new Image(this.getClass().getResource("/images/cv64x64.png").toString()));

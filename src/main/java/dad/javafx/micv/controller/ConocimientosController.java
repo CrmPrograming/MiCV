@@ -109,7 +109,6 @@ public class ConocimientosController implements Initializable {
 		Dialog<ResultadosDialogoConocimiento> dialog = new Dialog<>();
 
 		dialog.setTitle("Nuevo conocimiento");
-		dialog.initOwner(App.getPrimaryStage());
 
 		Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
 		stage.getIcons().add(new Image(this.getClass().getResource("/images/cv64x64.png").toString()));
@@ -183,7 +182,6 @@ public class ConocimientosController implements Initializable {
 		Dialog<ResultadosDialogoConocimiento> dialog = new Dialog<>();
 
 		dialog.setTitle("Nuevo conocimiento");
-		dialog.initOwner(App.getPrimaryStage());
 
 		Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
 		stage.getIcons().add(new Image(this.getClass().getResource("/images/cv64x64.png").toString()));
@@ -192,7 +190,7 @@ public class ConocimientosController implements Initializable {
 
 		ButtonType btCrear = new ButtonType("Crear", ButtonData.OK_DONE);
 		dialog.getDialogPane().getButtonTypes().addAll(btCrear, ButtonType.CANCEL);
-
+		
 		GridPane grid = new GridPane();
 		grid.setHgap(5);
 		grid.setVgap(10);
