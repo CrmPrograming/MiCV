@@ -51,7 +51,7 @@ public class ConocimientosController implements Initializable {
 	private Button btEliminar;
 
 	public ConocimientosController() throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ConocimientoView.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ConocimientosView.fxml"));
 		loader.setController(this);
 		loader.load();
 	}
@@ -77,7 +77,12 @@ public class ConocimientosController implements Initializable {
 	}
 	
 	@FXML
-	void onClickAnadir(ActionEvent event) {
+	void onClickAnadirConocimiento(ActionEvent event) {
+		
+	}
+	
+	@FXML
+	void onClickAnadirIdioma(ActionEvent event) {
 		
 	}
 	
