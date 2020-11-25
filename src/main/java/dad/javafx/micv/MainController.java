@@ -38,6 +38,7 @@ public class MainController implements Initializable {
 	// model
 	
 	private ObjectProperty<CV> cv = new SimpleObjectProperty<>();
+	private File ficheroActual;
 	
 	// view
 	
@@ -76,6 +77,8 @@ public class MainController implements Initializable {
 		cv.addListener((o, ov, nv) -> onCVChanged(o, ov, nv));
 		
 		cv.set(new CV());
+		
+		ficheroActual = null;
 	}
 	
 	private void onCVChanged(ObservableValue<? extends CV> o, CV ov, CV nv) {
@@ -114,6 +117,7 @@ public class MainController implements Initializable {
     		try {
     			cv.set(JSONUtils.fromJson(cvFile, CV.class));
     			App.info("Se ha abierto el fichero " + cvFile.getName() + " correctamente.", "Los datos cargados se encuentran en el formulario.");
+    			ficheroActual = cvFile;
 			} catch (JsonSyntaxException|IOException e) {
 				App.error("Ha ocurrido un error al abrir " + cvFile, e.getMessage());
 			}
@@ -132,7 +136,15 @@ public class MainController implements Initializable {
 
     @FXML
     void onGuardarAction(ActionEvent event) {
-    	// TODO Implementar
+    	if (ficheroActual == null) {
+    		onGuardarComoAction(event);
+    	} else {
+    		try {
+    			JSONUtils.toJson(ficheroActual, cv.get());
+    		} catch (JsonSyntaxException|IOException e) {
+				App.error("Ha ocurrido un error al guardar " + ficheroActual, e.getMessage());
+			}
+    	}
     }
 
     @FXML
@@ -145,6 +157,7 @@ public class MainController implements Initializable {
 	    	if (cvFile != null) {
 	    		try {
 	    			JSONUtils.toJson(cvFile, cv.get());
+	    			ficheroActual = cvFile;
 				} catch (JsonSyntaxException|IOException e) {
 					App.error("Ha ocurrido un error al guardar " + cvFile, e.getMessage());
 				}
@@ -154,6 +167,7 @@ public class MainController implements Initializable {
     @FXML
     void onNuevoAction(ActionEvent event) {
     	cv.set(new CV());
+    	ficheroActual = null;
     }
     
 }
