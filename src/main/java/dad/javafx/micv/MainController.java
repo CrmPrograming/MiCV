@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import com.google.gson.JsonSyntaxException;
 
+import dad.javafx.micv.controller.ConocimientosController;
 import dad.javafx.micv.controller.ContactoController;
 import dad.javafx.micv.controller.ExperienciaController;
 import dad.javafx.micv.controller.FormacionController;
@@ -34,6 +35,7 @@ public class MainController implements Initializable {
 	private ContactoController contactoController = new ContactoController();
 	private FormacionController tituloController = new FormacionController();
 	private ExperienciaController experienciaController = new ExperienciaController();
+	private ConocimientosController conocimientoController = new ConocimientosController();
 	
 	// model
 	
@@ -73,6 +75,7 @@ public class MainController implements Initializable {
 		contactoTab.setContent(contactoController.getView());
 		formacionTab.setContent(tituloController.getView());
 		experienciaTab.setContent(experienciaController.getView());
+		conocimientosTab.setContent(conocimientoController.getView());
 		
 		cv.addListener((o, ov, nv) -> onCVChanged(o, ov, nv));
 		
@@ -89,7 +92,7 @@ public class MainController implements Initializable {
 			contactoController.contactoProperty().unbind();
 			tituloController.titulosProperty().unbind();
 			experienciaController.experienciasProperty().unbind();
-			
+			conocimientoController.conocimientosProperty().unbind();
 		}
 		
 		if (nv != null) {
@@ -98,6 +101,7 @@ public class MainController implements Initializable {
 			contactoController.contactoProperty().bind(nv.contactoProperty());
 			tituloController.titulosProperty().bind(nv.titulosProperty());
 			experienciaController.experienciasProperty().bind(nv.experienciasProperty());
+			conocimientoController.conocimientosProperty().bind(nv.conocimientosProperty());
 		}
 		
 	}

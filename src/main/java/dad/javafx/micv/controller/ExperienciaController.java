@@ -91,10 +91,10 @@ public class ExperienciaController implements Initializable {
 		tcDenominacion.setCellFactory(TextFieldTableCell.forTableColumn());
 		tcEmpleador.setCellFactory(TextFieldTableCell.forTableColumn());
 		
-		this.experiencias.addListener((o, ov, nv) -> onTituloChanged(o, ov, nv));
+		this.experiencias.addListener((o, ov, nv) -> onExperienciaChanged(o, ov, nv));
 	}
 
-	private void onTituloChanged(ObservableValue<? extends ObservableList<Experiencia>> o, ObservableList<Experiencia> ov, ObservableList<Experiencia> nv) {
+	private void onExperienciaChanged(ObservableValue<? extends ObservableList<Experiencia>> o, ObservableList<Experiencia> ov, ObservableList<Experiencia> nv) {
 		if (ov != null) {
 			tvExperiencia.setItems(null);
 			seleccionado.unbind();
