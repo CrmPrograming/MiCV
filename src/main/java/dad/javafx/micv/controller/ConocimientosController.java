@@ -82,100 +82,94 @@ public class ConocimientosController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		tcDenominacion.setCellValueFactory(v -> v.getValue().denominacionProperty());
 		tcNivel.setCellValueFactory(v -> v.getValue().nivelProperty());
-		
+
 		tcDenominacion.setCellFactory(TextFieldTableCell.forTableColumn());
 		tcNivel.setCellFactory(ComboBoxTableCell.forTableColumn(Nivel.values()));
-		
+
 		this.conocimientos.addListener((o, ov, nv) -> onConocimientoChanged(o, ov, nv));
 	}
-	
-	private void onConocimientoChanged(ObservableValue<? extends ObservableList<Conocimiento>> o, ObservableList<Conocimiento> ov, ObservableList<Conocimiento> nv) {
+
+	private void onConocimientoChanged(ObservableValue<? extends ObservableList<Conocimiento>> o,
+			ObservableList<Conocimiento> ov, ObservableList<Conocimiento> nv) {
 		if (ov != null) {
 			tvConocimiento.setItems(null);
 			seleccionado.unbind();
 			btEliminar.disableProperty().unbind();
 		}
-		
+
 		if (nv != null) {
 			tvConocimiento.setItems(nv);
 			seleccionado.bind(tvConocimiento.getSelectionModel().selectedItemProperty());
 			btEliminar.disableProperty().bind(Bindings.isEmpty(tvConocimiento.getItems()));
 		}
 	}
-	
+
 	@FXML
 	void onClickAnadirConocimiento(ActionEvent event) {
 		Dialog<ResultadosDialogoConocimiento> dialog = new Dialog<>();
-		
+
 		dialog.setTitle("Nuevo conocimiento");
-		
+		dialog.initOwner(App.getPrimaryStage());
+
 		Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
 		stage.getIcons().add(new Image(this.getClass().getResource("/images/cv64x64.png").toString()));
 		stage.setMinWidth(550);
 		stage.setMinHeight(300);
-		
+
 		ButtonType btCrear = new ButtonType("Crear", ButtonData.OK_DONE);
 		dialog.getDialogPane().getButtonTypes().addAll(btCrear, ButtonType.CANCEL);
-		
+
 		GridPane grid = new GridPane();
 		grid.setHgap(5);
 		grid.setVgap(10);
 		grid.setPadding(new Insets(20, 10, 10, 10));
-		
+
 		TextField tfDenominacion = new TextField();
 		ComboBox<Nivel> cbNivel = new ComboBox<>();
 		Button btLimpiarCombo = new Button("X");
-		
+
 		cbNivel.getItems().addAll(Nivel.values());
-		
+
 		Node nodeBtAnadir = dialog.getDialogPane().lookupButton(btCrear);
 		nodeBtAnadir.setDisable(true);
-		
-		nodeBtAnadir.disableProperty().bind(
-				tfDenominacion.textProperty().isEmpty().or(
-				cbNivel.valueProperty().isNull()));
-		
+
+		nodeBtAnadir.disableProperty()
+				.bind(tfDenominacion.textProperty().isEmpty().or(cbNivel.valueProperty().isNull()));
+
 		btLimpiarCombo.setOnAction(e -> {
 			cbNivel.setValue(null);
 		});
-		
+
 		grid.add(new Label("Denominación"), 0, 0);
 		grid.add(tfDenominacion, 1, 0);
 		grid.add(new Label("Nivel"), 0, 1);
 		grid.add(cbNivel, 1, 1);
 		grid.add(btLimpiarCombo, 2, 1);
-		
+
 		GridPane.setColumnSpan(tfDenominacion, 2);
-		
-		ColumnConstraints[] cols = {
-				new ColumnConstraints(),
-				new ColumnConstraints(),
-				new ColumnConstraints()
-		};
-		
+
+		ColumnConstraints[] cols = { new ColumnConstraints(), new ColumnConstraints(), new ColumnConstraints() };
+
 		cols[0].setHalignment(HPos.RIGHT);
 		cols[2].setHgrow(Priority.ALWAYS);
 		cols[2].setFillWidth(true);
 		cols[2].setHalignment(HPos.LEFT);
-		
+
 		grid.getColumnConstraints().setAll(cols);
-		
+
 		dialog.getDialogPane().setContent(grid);
-		
+
 		Platform.runLater(() -> tfDenominacion.requestFocus());
-		
+
 		dialog.setResultConverter(dialogButton -> {
 			if (dialogButton == btCrear) {
-				return new ResultadosDialogoConocimiento(
-						tfDenominacion.getText(),
-						cbNivel.getValue(),
-						null);
+				return new ResultadosDialogoConocimiento(tfDenominacion.getText(), cbNivel.getValue(), null);
 			}
 			return null;
 		});
-		
+
 		Optional<ResultadosDialogoConocimiento> result = dialog.showAndWait();
-		
+
 		if (result.isPresent()) {
 			Conocimiento conocimiento = new Conocimiento();
 			conocimiento.setDenominacion(result.get().getDenominacion());
@@ -183,109 +177,102 @@ public class ConocimientosController implements Initializable {
 			conocimientos.get().add(conocimiento);
 		}
 	}
-	
+
 	@FXML
 	void onClickAnadirIdioma(ActionEvent event) {
-Dialog<ResultadosDialogoConocimiento> dialog = new Dialog<>();
-		
+		Dialog<ResultadosDialogoConocimiento> dialog = new Dialog<>();
+
 		dialog.setTitle("Nuevo conocimiento");
-		
+		dialog.initOwner(App.getPrimaryStage());
+
 		Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
 		stage.getIcons().add(new Image(this.getClass().getResource("/images/cv64x64.png").toString()));
 		stage.setMinWidth(550);
 		stage.setMinHeight(300);
-		
+
 		ButtonType btCrear = new ButtonType("Crear", ButtonData.OK_DONE);
 		dialog.getDialogPane().getButtonTypes().addAll(btCrear, ButtonType.CANCEL);
-		
+
 		GridPane grid = new GridPane();
 		grid.setHgap(5);
 		grid.setVgap(10);
 		grid.setPadding(new Insets(20, 10, 10, 10));
-		
+
 		TextField tfDenominacion = new TextField();
 		ComboBox<Nivel> cbNivel = new ComboBox<>();
 		Button btLimpiarCombo = new Button("X");
 		TextField tfCertificacion = new TextField();
 		HBox hBox = new HBox();
-				
+
 		hBox.getChildren().addAll(cbNivel, btLimpiarCombo);
 		hBox.setSpacing(5);
-		
+
 		tfCertificacion.setPrefWidth(160);
-		
+
 		cbNivel.getItems().addAll(Nivel.values());
-		
+
 		Node nodeBtAnadir = dialog.getDialogPane().lookupButton(btCrear);
 		nodeBtAnadir.setDisable(true);
-		
-		nodeBtAnadir.disableProperty().bind(
-				tfDenominacion.textProperty().isEmpty().or(
-				cbNivel.valueProperty().isNull()).or(
-				tfCertificacion.textProperty().isEmpty()));
-		
+
+		nodeBtAnadir.disableProperty().bind(tfDenominacion.textProperty().isEmpty().or(cbNivel.valueProperty().isNull())
+				.or(tfCertificacion.textProperty().isEmpty()));
+
 		btLimpiarCombo.setOnAction(e -> {
 			cbNivel.setValue(null);
 		});
-		
+
 		grid.add(new Label("Denominación"), 0, 0);
 		grid.add(tfDenominacion, 1, 0);
 		grid.add(new Label("Nivel"), 0, 1);
 		grid.add(hBox, 1, 1);
 		grid.add(new Label("Certificación"), 0, 2);
-		
+
 		GridPane.setColumnSpan(tfDenominacion, 2);
 		grid.add(tfCertificacion, 1, 2);
-		
-		ColumnConstraints[] cols = {
-				new ColumnConstraints(),
-				new ColumnConstraints(),
-				new ColumnConstraints()
-		};
-		
+
+		ColumnConstraints[] cols = { new ColumnConstraints(), new ColumnConstraints(), new ColumnConstraints() };
+
 		cols[0].setHalignment(HPos.RIGHT);
 		cols[2].setHgrow(Priority.ALWAYS);
 		cols[2].setFillWidth(true);
 		cols[2].setHalignment(HPos.LEFT);
-		
+
 		grid.getColumnConstraints().setAll(cols);
-		
+
 		dialog.getDialogPane().setContent(grid);
-		
+
 		Platform.runLater(() -> tfDenominacion.requestFocus());
-		
+
 		dialog.setResultConverter(dialogButton -> {
 			if (dialogButton == btCrear) {
-				return new ResultadosDialogoConocimiento(
-						tfDenominacion.getText(),
-						cbNivel.getValue(),
+				return new ResultadosDialogoConocimiento(tfDenominacion.getText(), cbNivel.getValue(),
 						tfCertificacion.getText());
 			}
 			return null;
 		});
-		
+
 		Optional<ResultadosDialogoConocimiento> result = dialog.showAndWait();
-		
+
 		if (result.isPresent()) {
 			Idioma idioma = new Idioma();
 			idioma.setDenominacion(result.get().getDenominacion());
 			idioma.setNivel(result.get().getNivel());
 			idioma.setCertificacion(result.get().getCertificacion());
 			conocimientos.get().add(idioma);
-		}	
+		}
 	}
-	
+
 	@FXML
 	void onClickEliminar(ActionEvent event) {
 		String title = "Eliminar conocimiento";
 		String header = "Antes de continuar, confirme";
 		String content = "Esta operación es irreversible.\n¿Está seguro de borrar el conocimiento?";
 		Conocimiento conocimiento = seleccionado.get();
-		
+
 		if (conocimiento != null && App.confirm(title, header, content))
 			conocimientos.get().remove(conocimiento);
 	}
-	
+
 	public BorderPane getView() {
 		return view;
 	}
@@ -293,12 +280,10 @@ Dialog<ResultadosDialogoConocimiento> dialog = new Dialog<>();
 	public final ListProperty<Conocimiento> conocimientosProperty() {
 		return this.conocimientos;
 	}
-	
 
 	public final ObservableList<Conocimiento> getConocimientos() {
 		return this.conocimientosProperty().get();
 	}
-	
 
 	public final void setConocimientos(final ObservableList<Conocimiento> conocimientos) {
 		this.conocimientosProperty().set(conocimientos);

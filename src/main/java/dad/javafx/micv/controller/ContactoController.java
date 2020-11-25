@@ -141,6 +141,7 @@ public class ContactoController implements Initializable {
 		dialog.setTitle("Nuevo e-mail");
 		dialog.setHeaderText("Crear una nueva dirección de correo.");
 		dialog.setContentText("E-mail:");
+		dialog.initOwner(App.getPrimaryStage());
 		
 		Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
 		stage.getIcons().add(new Image(this.getClass().getResource("/images/cv64x64.png").toString()));
@@ -163,6 +164,7 @@ public class ContactoController implements Initializable {
 		
 		dialog.setTitle("Nuevo teléfono");
 		dialog.setContentText("Introduzca el nuevo número de teléfono.");
+		dialog.initOwner(App.getPrimaryStage());
 		
 		Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
 		stage.getIcons().add(new Image(this.getClass().getResource("/images/cv64x64.png").toString()));
@@ -222,6 +224,7 @@ public class ContactoController implements Initializable {
 		dialog.setTitle("Nueva web");
 		dialog.setHeaderText("Crear una nueva dirección web.");
 		dialog.setContentText("URL:");
+		dialog.initOwner(App.getPrimaryStage());
 		
 		Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
 		stage.getIcons().add(new Image(this.getClass().getResource("/images/cv64x64.png").toString()));

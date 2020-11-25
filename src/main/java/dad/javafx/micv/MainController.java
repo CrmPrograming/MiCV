@@ -22,7 +22,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Tab;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -88,7 +90,6 @@ public class MainController implements Initializable {
 
 		if (ov != null) {
 			personalController.personalProperty().unbind();
-			// TODO desbindear el resto de controladores
 			contactoController.contactoProperty().unbind();
 			tituloController.titulosProperty().unbind();
 			experienciaController.experienciasProperty().unbind();
@@ -97,7 +98,6 @@ public class MainController implements Initializable {
 		
 		if (nv != null) {
 			personalController.personalProperty().bind(nv.personalProperty());
-			// TODO bindear el resto de controladores
 			contactoController.contactoProperty().bind(nv.contactoProperty());
 			tituloController.titulosProperty().bind(nv.titulosProperty());
 			experienciaController.experienciasProperty().bind(nv.experienciasProperty());
@@ -130,7 +130,12 @@ public class MainController implements Initializable {
 
     @FXML
     void onAcercaDeAction(ActionEvent event) {
-    	// TODO Implementar
+    	Alert alert = new Alert(AlertType.INFORMATION);
+		alert.initOwner(App.getPrimaryStage());
+		alert.setTitle("Mi CV");
+		alert.setHeaderText("App para tratamiento de currculums vitae.");
+		alert.setContentText("- Autor: César Ravelo Martínez\n- Asignatura: Desarrollo de Interfaces\n- Curso: 2º DAM A");
+		alert.showAndWait();
     }
 
     @FXML

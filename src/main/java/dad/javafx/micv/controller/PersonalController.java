@@ -139,9 +139,11 @@ public class PersonalController implements Initializable {
 	@FXML
     void onClickNuevaNacionalidad(ActionEvent event) {
 		ChoiceDialog<String> dialog = new ChoiceDialog<>(listadoNacionalidades.get(0), listadoNacionalidades);
+		
 		dialog.setTitle("Nueva nacionalidad");
 		dialog.setHeaderText("Añadir nacionalidad");
 		dialog.setContentText("Seleccione una nacionalidad");
+		dialog.initOwner(App.getPrimaryStage());
 		
 		Optional<String> result = dialog.showAndWait();
 		
