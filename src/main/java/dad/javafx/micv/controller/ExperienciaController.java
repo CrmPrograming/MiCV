@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 
 import dad.javafx.micv.App;
 import dad.javafx.micv.model.Experiencia;
-import dad.javafx.micv.utils.DialogoExperiencia;
+import dad.javafx.micv.utils.dialogo.DialogoExperiencia;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;

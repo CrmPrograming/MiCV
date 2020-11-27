@@ -1,6 +1,6 @@
-package dad.javafx.micv.utils;
+package dad.javafx.micv.utils.dialogo;
 
-import dad.javafx.micv.model.Experiencia;
+import dad.javafx.micv.model.Titulo;
 import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -17,10 +17,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
-public class DialogoExperiencia extends Dialog<Experiencia> {
+public class DialogoTitulo extends Dialog<Titulo> {
 	
-	public DialogoExperiencia() {
-		setTitle("Nueva experiencia");
+	public DialogoTitulo() {
+		setTitle("Nuevo título");
 		
 		Stage stage = (Stage) getDialogPane().getScene().getWindow();
 		stage.getIcons().add(new Image(this.getClass().getResource("/images/cv64x64.png").toString()));
@@ -36,7 +36,7 @@ public class DialogoExperiencia extends Dialog<Experiencia> {
 		grid.setPadding(new Insets(20, 10, 10, 10));
 		
 		TextField tfDenominacion = new TextField();
-		TextField tfEmpleador = new TextField();
+		TextField tfOrganizador = new TextField();
 		DatePicker dpDesde = new DatePicker();
 		DatePicker dpHasta = new DatePicker();
 		
@@ -45,21 +45,21 @@ public class DialogoExperiencia extends Dialog<Experiencia> {
 		
 		nodeBtAnadir.disableProperty().bind(
 				tfDenominacion.textProperty().isEmpty().or(
-				tfEmpleador.textProperty().isEmpty()).or(
+				tfOrganizador.textProperty().isEmpty()).or(
 				dpDesde.valueProperty().isNull()).or(
 				dpHasta.valueProperty().isNull()));
 		
 		grid.add(new Label("Denominación"), 0, 0);
 		grid.add(tfDenominacion, 1, 0);
 		grid.add(new Label("Organizador"), 0, 1);
-		grid.add(tfEmpleador, 1, 1);
+		grid.add(tfOrganizador, 1, 1);
 		grid.add(new Label("Desde"), 0, 2);
 		grid.add(dpDesde, 1, 2);
 		grid.add(new Label("Hasta"), 0, 3);
 		grid.add(dpHasta, 1, 3);
 		
 		GridPane.setColumnSpan(tfDenominacion, 2);
-		GridPane.setColumnSpan(tfEmpleador, 2);
+		GridPane.setColumnSpan(tfOrganizador, 2);
 		
 		ColumnConstraints[] cols = {
 				new ColumnConstraints(),
@@ -79,9 +79,9 @@ public class DialogoExperiencia extends Dialog<Experiencia> {
 		
 		setResultConverter(dialogButton -> {
 			if (dialogButton == btCrear) {
-				Experiencia resultado = new Experiencia();
+				Titulo resultado = new Titulo();
 				resultado.setDenominacion(tfDenominacion.getText());
-				resultado.setEmpleador(tfEmpleador.getText());
+				resultado.setOrganizador(tfOrganizador.getText());
 				resultado.setDesde(dpDesde.getValue());
 				resultado.setHasta(dpHasta.getValue());
 				return resultado;

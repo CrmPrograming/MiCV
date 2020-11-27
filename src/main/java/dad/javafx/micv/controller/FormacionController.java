@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 
 import dad.javafx.micv.App;
 import dad.javafx.micv.model.Titulo;
-import dad.javafx.micv.utils.DialogoTitulo;
+import dad.javafx.micv.utils.dialogo.DialogoTitulo;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;

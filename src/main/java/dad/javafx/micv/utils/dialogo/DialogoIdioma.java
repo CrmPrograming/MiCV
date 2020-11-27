@@ -1,4 +1,4 @@
-package dad.javafx.micv.utils;
+package dad.javafx.micv.utils.dialogo;
 
 import dad.javafx.micv.model.conocimiento.Idioma;
 import dad.javafx.micv.model.conocimiento.Nivel;
