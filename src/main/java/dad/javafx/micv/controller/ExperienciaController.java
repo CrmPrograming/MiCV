@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 
 import dad.javafx.micv.App;
 import dad.javafx.micv.model.Experiencia;
-import javafx.application.Platform;
+import dad.javafx.micv.utils.DialogoExperiencia;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
@@ -21,25 +21,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.stage.Stage;
 import javafx.util.converter.LocalDateStringConverter;
 
 public class ExperienciaController implements Initializable {
@@ -113,83 +99,11 @@ public class ExperienciaController implements Initializable {
 
 	@FXML
 	void onClickAnadir(ActionEvent event) {
-		Dialog<Experiencia> dialog = new Dialog<>();
-		
-		dialog.setTitle("Nueva experiencia");
-		
-		Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-		stage.getIcons().add(new Image(this.getClass().getResource("/images/cv64x64.png").toString()));
-		stage.setMinWidth(550);
-		stage.setMinHeight(200);
-		
-		ButtonType btCrear = new ButtonType("Crear", ButtonData.OK_DONE);
-		dialog.getDialogPane().getButtonTypes().addAll(btCrear, ButtonType.CANCEL);
-		
-		GridPane grid = new GridPane();
-		grid.setHgap(10);
-		grid.setVgap(10);
-		grid.setPadding(new Insets(20, 10, 10, 10));
-		
-		TextField tfDenominacion = new TextField();
-		TextField tfEmpleador = new TextField();
-		
-		DatePicker dpDesde = new DatePicker();
-		DatePicker dpHasta = new DatePicker();
-		
-		Node nodeBtAnadir = dialog.getDialogPane().lookupButton(btCrear);
-		nodeBtAnadir.setDisable(true);
-		
-		nodeBtAnadir.disableProperty().bind(
-				tfDenominacion.textProperty().isEmpty().or(
-				tfEmpleador.textProperty().isEmpty()).or(
-				dpDesde.valueProperty().isNull()).or(
-				dpHasta.valueProperty().isNull()));
-		
-		grid.add(new Label("Denominación"), 0, 0);
-		grid.add(tfDenominacion, 1, 0);
-		grid.add(new Label("Empleador"), 0, 1);
-		grid.add(tfEmpleador, 1, 1);
-		grid.add(new Label("Desde"), 0, 2);
-		grid.add(dpDesde, 1, 2);
-		grid.add(new Label("Hasta"), 0, 3);
-		grid.add(dpHasta, 1, 3);
-		
-		GridPane.setColumnSpan(tfDenominacion, 2);
-		GridPane.setColumnSpan(tfEmpleador, 2);
-		
-		ColumnConstraints[] cols = {
-				new ColumnConstraints(),
-				new ColumnConstraints(),
-				new ColumnConstraints()
-		};
-		
-		cols[0].setHalignment(HPos.RIGHT);
-		cols[1].setHgrow(Priority.ALWAYS);
-		cols[1].setFillWidth(true);
-		
-		grid.getColumnConstraints().setAll(cols);
-		
-		dialog.getDialogPane().setContent(grid);
-		
-		Platform.runLater(() -> tfDenominacion.requestFocus());
-		
-		dialog.setResultConverter(dialogButton -> {
-			if (dialogButton == btCrear) {
-				Experiencia result = new Experiencia();
-				result.setDenominacion(tfDenominacion.getText());
-				result.setEmpleador(tfEmpleador.getText());
-				result.setDesde(dpDesde.getValue());
-				result.setHasta(dpHasta.getValue());
-				return result;
-			}
-			return null;
-		});
-		
+		DialogoExperiencia dialog = new DialogoExperiencia();
 		Optional<Experiencia> result = dialog.showAndWait();
 		
-		if (result.isPresent()) {
+		if (result.isPresent())
 			experiencias.get().add(result.get());
-		}
 	}
 
 	@FXML
