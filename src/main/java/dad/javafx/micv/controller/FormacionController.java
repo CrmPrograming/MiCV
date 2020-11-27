@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 
 import dad.javafx.micv.App;
 import dad.javafx.micv.model.Titulo;
-import dad.javafx.micv.utils.ResultadosDialogoConFechas;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ListProperty;
@@ -114,7 +113,7 @@ public class FormacionController implements Initializable {
 
 	@FXML
 	void onClickAnadir(ActionEvent event) {
-		Dialog<ResultadosDialogoConFechas> dialog = new Dialog<>();
+		Dialog<Titulo> dialog = new Dialog<>();
 		
 		dialog.setTitle("Nuevo título");
 		
@@ -176,25 +175,21 @@ public class FormacionController implements Initializable {
 		
 		dialog.setResultConverter(dialogButton -> {
 			if (dialogButton == btCrear) {
-				return new ResultadosDialogoConFechas(
-						tfDenominacion.getText(),
-						tfOrganizador.getText(),
-						dpDesde.getValue(),
-						dpHasta.getValue());
+				Titulo resultado = new Titulo();
+				resultado.setDenominacion(tfDenominacion.getText());
+				resultado.setOrganizador(tfOrganizador.getText());
+				resultado.setDesde(dpDesde.getValue());
+				resultado.setHasta(dpHasta.getValue());
+				
+				return resultado;
 			}
 			return null;
 		});
 		
-		Optional<ResultadosDialogoConFechas> result = dialog.showAndWait();
+		Optional<Titulo> result = dialog.showAndWait();
 		
-		if (result.isPresent()) {
-			Titulo resultado = new Titulo();
-			resultado.setDenominacion(result.get().getPrimero());
-			resultado.setOrganizador(result.get().getSegundo());
-			resultado.setDesde(result.get().getDesde());
-			resultado.setHasta(result.get().getHasta());
-			titulos.get().add(resultado);
-		}
+		if (result.isPresent())
+			titulos.get().add(result.get());
 	}
 
 	@FXML

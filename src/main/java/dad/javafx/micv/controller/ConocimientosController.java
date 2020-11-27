@@ -9,7 +9,6 @@ import dad.javafx.micv.App;
 import dad.javafx.micv.model.conocimiento.Conocimiento;
 import dad.javafx.micv.model.conocimiento.Idioma;
 import dad.javafx.micv.model.conocimiento.Nivel;
-import dad.javafx.micv.utils.ResultadosDialogoConocimiento;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ListProperty;
@@ -106,7 +105,7 @@ public class ConocimientosController implements Initializable {
 
 	@FXML
 	void onClickAnadirConocimiento(ActionEvent event) {
-		Dialog<ResultadosDialogoConocimiento> dialog = new Dialog<>();
+		Dialog<Conocimiento> dialog = new Dialog<>();
 
 		dialog.setTitle("Nuevo conocimiento");
 
@@ -162,24 +161,23 @@ public class ConocimientosController implements Initializable {
 
 		dialog.setResultConverter(dialogButton -> {
 			if (dialogButton == btCrear) {
-				return new ResultadosDialogoConocimiento(tfDenominacion.getText(), cbNivel.getValue(), null);
+				Conocimiento result = new Conocimiento();
+				result.setDenominacion(tfDenominacion.getText());
+				result.setNivel(cbNivel.getValue());
+				return result;
 			}
 			return null;
 		});
 
-		Optional<ResultadosDialogoConocimiento> result = dialog.showAndWait();
+		Optional<Conocimiento> result = dialog.showAndWait();
 
-		if (result.isPresent()) {
-			Conocimiento conocimiento = new Conocimiento();
-			conocimiento.setDenominacion(result.get().getDenominacion());
-			conocimiento.setNivel(result.get().getNivel());
-			conocimientos.get().add(conocimiento);
-		}
+		if (result.isPresent())
+			conocimientos.get().add(result.get());
 	}
 
 	@FXML
 	void onClickAnadirIdioma(ActionEvent event) {
-		Dialog<ResultadosDialogoConocimiento> dialog = new Dialog<>();
+		Dialog<Idioma> dialog = new Dialog<>();
 
 		dialog.setTitle("Nuevo conocimiento");
 
@@ -243,21 +241,19 @@ public class ConocimientosController implements Initializable {
 
 		dialog.setResultConverter(dialogButton -> {
 			if (dialogButton == btCrear) {
-				return new ResultadosDialogoConocimiento(tfDenominacion.getText(), cbNivel.getValue(),
-						tfCertificacion.getText());
+				Idioma result = new Idioma();
+				result.setDenominacion(tfDenominacion.getText());
+				result.setNivel(cbNivel.getValue());
+				result.setCertificacion(tfCertificacion.getText());
+				return result;
 			}
 			return null;
 		});
 
-		Optional<ResultadosDialogoConocimiento> result = dialog.showAndWait();
+		Optional<Idioma> result = dialog.showAndWait();
 
-		if (result.isPresent()) {
-			Idioma idioma = new Idioma();
-			idioma.setDenominacion(result.get().getDenominacion());
-			idioma.setNivel(result.get().getNivel());
-			idioma.setCertificacion(result.get().getCertificacion());
-			conocimientos.get().add(idioma);
-		}
+		if (result.isPresent())
+			conocimientos.get().add(result.get());
 	}
 
 	@FXML

@@ -97,8 +97,6 @@ public class PersonalController implements Initializable {
 			App.error("Listado de nacionalidades no disponible.", e.getLocalizedMessage());
 			Platform.exit();
 		}
-		
-		
 
 		this.personal.addListener((o, ov, nv) -> onPersonalChanged(o, ov, nv));
 		

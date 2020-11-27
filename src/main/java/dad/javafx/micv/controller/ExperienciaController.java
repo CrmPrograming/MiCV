@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 
 import dad.javafx.micv.App;
 import dad.javafx.micv.model.Experiencia;
-import dad.javafx.micv.utils.ResultadosDialogoConFechas;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ListProperty;
@@ -114,7 +113,7 @@ public class ExperienciaController implements Initializable {
 
 	@FXML
 	void onClickAnadir(ActionEvent event) {
-		Dialog<ResultadosDialogoConFechas> dialog = new Dialog<>();
+		Dialog<Experiencia> dialog = new Dialog<>();
 		
 		dialog.setTitle("Nueva experiencia");
 		
@@ -176,24 +175,20 @@ public class ExperienciaController implements Initializable {
 		
 		dialog.setResultConverter(dialogButton -> {
 			if (dialogButton == btCrear) {
-				return new ResultadosDialogoConFechas(
-						tfDenominacion.getText(),
-						tfEmpleador.getText(),
-						dpDesde.getValue(),
-						dpHasta.getValue());
+				Experiencia result = new Experiencia();
+				result.setDenominacion(tfDenominacion.getText());
+				result.setEmpleador(tfEmpleador.getText());
+				result.setDesde(dpDesde.getValue());
+				result.setHasta(dpHasta.getValue());
+				return result;
 			}
 			return null;
 		});
 		
-		Optional<ResultadosDialogoConFechas> result = dialog.showAndWait();
+		Optional<Experiencia> result = dialog.showAndWait();
 		
 		if (result.isPresent()) {
-			Experiencia resultado = new Experiencia();
-			resultado.setDenominacion(result.get().getPrimero());
-			resultado.setEmpleador(result.get().getSegundo());
-			resultado.setDesde(result.get().getDesde());
-			resultado.setHasta(result.get().getHasta());
-			experiencias.get().add(resultado);
+			experiencias.get().add(result.get());
 		}
 	}
 
