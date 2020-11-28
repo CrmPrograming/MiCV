@@ -133,7 +133,7 @@ public class MainController implements Initializable {
     	Alert alert = new Alert(AlertType.INFORMATION);
 		alert.initOwner(App.getPrimaryStage());
 		alert.setTitle("Mi CV");
-		alert.setHeaderText("App para tratamiento de currculums vitae.");
+		alert.setHeaderText("App para tratamiento de currículums vitae.");
 		alert.setContentText("- Autor: César Ravelo Martínez\n- Asignatura: Desarrollo de Interfaces\n- Curso: 2º DAM A");
 		alert.showAndWait();
     }
