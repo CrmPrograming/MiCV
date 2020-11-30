@@ -4,7 +4,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>dad.javafx</groupId>
+	<groupId>dad.javafx.micv</groupId>
 	<artifactId>MiCV</artifactId>
 	<version>1.0.0</version>
 
@@ -12,7 +12,7 @@
 		<maven.compiler.target>14</maven.compiler.target>
 		<maven.compiler.source>14</maven.compiler.source>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<exec.mainClass>dad.template.javafx.Main</exec.mainClass>
+		<exec.mainClass>dad.javafx.micv.Main</exec.mainClass>
 	</properties>
 
 	<dependencies>
